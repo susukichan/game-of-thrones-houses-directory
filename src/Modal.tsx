@@ -1,6 +1,15 @@
 // @ts-nocheck
 
-const Modal = ({ isOpen, onClose, house }) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  house,
+  currentLord,
+  overlord,
+  heir,
+  swornMembers,
+  founder,
+}) => {
   if (!isOpen) return null;
   // const [currentLord, setCurrentLord] = useState("");
   // const houseProperties = [
@@ -25,6 +34,7 @@ const Modal = ({ isOpen, onClose, house }) => {
           backgroundColor: "rgba(0,0,0,.7)",
           zIndex: 1000,
         }}
+        className="modal-overlay"
       ></div>
       <div
         style={{
@@ -36,32 +46,49 @@ const Modal = ({ isOpen, onClose, house }) => {
           padding: "50px",
           zIndex: 1000,
         }}
+        className="modal"
       >
         <h2>name: {house?.name}</h2>
         {/* cannot make it .eachHouse */}
         {/* <ul>
           {houseProperties.map((eachHouse) => (
             <li key={eachHouse}>
-              {eachHouse}:{house?.eachHouse}
+            {eachHouse}:{house?.eachHouse}
             </li>
-          ))}
-        </ul> */}
-        <p>region: {house?.region}</p>
-        <p>coatOfArms: {house?.coatOfArms}</p>
-        <p>words: {house?.words}</p>
-        <p>seats: {house?.seats}</p>
-        {house?.currentLord}
-        {/* <p>currentLord: {currentLord}</p> */}
-        <p>heir: {house?.heir}</p>
-        <p>overlord: {house?.overlord}</p>
-        <p>founded: {house?.founded}</p>
-        <p>founder: {house?.founder}</p>
-        <p>diedOut:{house?.diedOut}</p>
-        <p>ancestralWeapons: {house?.ancestralWeapons}</p>
-        <p>cadetBranches: {house?.cadetBranches}</p>
-
-        {/* <p>{house?.swornMembers}</p> */}
-        <button onClick={onClose}>close</button>
+            ))}
+          </ul> */}
+        <ul
+          style={{
+            listStyleType: "none",
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          <li>region: {house?.region}</li>
+          <li>coatOfArms: {house?.coatOfArms}</li>
+          <li>words: {house?.words}</li>
+          <li>seats: {house?.seats}</li>
+          <li>currentLord: {currentLord.name}</li>
+          <li>heir: {heir.name}</li>
+          <li>overlord: {overlord.name}</li>
+          <li>founded: {house?.founded}</li>
+          <li>founder: {founder.name}</li>
+          <li>diedOut:{house?.diedOut}</li>
+          <li>ancestralWeapons: {house?.ancestralWeapons}</li>
+          <li>cadetBranches: {house?.cadetBranches}</li>
+          <li>swornMembers: {swornMembers.map((member) => ` ${member} |`)}</li>
+        </ul>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <button onClick={onClose}>
+            found more houses in the same region
+          </button>
+          <button onClick={onClose}>close</button>
+        </div>
       </div>
     </>
   );

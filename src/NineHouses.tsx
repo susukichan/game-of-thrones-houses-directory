@@ -75,7 +75,7 @@ const NineHouses = () => {
   );
 };
 interface HouseProps {
-  //don't understand
+  //type of key?
   key: Key | null | undefined;
   houseId: number;
   houseName: string[];
@@ -84,7 +84,11 @@ interface HouseProps {
 const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
   const [house, setHouse] = useState<null | House>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const [currentLord, setCurrentLord] = useState("");
+  const [currentLord, setCurrentLord] = useState("");
+  const [overlord, setOverlord] = useState("");
+  const [heir, setHeir] = useState("");
+  const [founder, setFounder] = useState("");
+  const [swornMembers, setSwornMembers] = useState<Array<string>>([]);
 
   return (
     <>
@@ -96,10 +100,39 @@ const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
         onClick={() => {
           fetch(`https://anapioficeandfire.com/api/houses/${houseId}`)
             .then((x) => x.json())
-            .then((rsp) => setHouse(rsp));
-          // fetch(house?.currentLord)
-          //   .then((x) => console.log(x))
-          //   .then((rsp) => console.log(house.currentLord.name));
+            .then((rsp) => {
+              if (rsp.currentLord) {
+                fetch(rsp.currentLord)
+                  .then((x) => x.json())
+                  .then((rsp) => setCurrentLord(rsp));
+              }
+              if (rsp.overlord) {
+                fetch(rsp.overlord)
+                  .then((x) => x.json())
+                  .then((rsp) => setOverlord(rsp));
+              }
+              if (rsp.heir) {
+                fetch(rsp.heir)
+                  .then((x) => x.json())
+                  .then((rsp) => setHeir(rsp));
+              }
+              if (rsp.founder) {
+                fetch(rsp.founder)
+                  .then((x) => x.json())
+                  .then((rsp) => setFounder(rsp));
+              }
+              if (rsp.swornMembers.length > 1) {
+                let ListOfSwornMembers = [];
+                for (let i = 0; i < rsp.swornMembers.length; i++) {
+                  fetch(rsp.swornMembers[i])
+                    .then((x) => x.json())
+                    .then((rsp) => ListOfSwornMembers.push(rsp.name));
+                }
+                setSwornMembers(ListOfSwornMembers);
+              }
+
+              setHouse(rsp);
+            });
 
           setModalIsOpen(true);
         }}
@@ -110,6 +143,11 @@ const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
         isOpen={modalIsOpen}
         onClose={() => setModalIsOpen(false)}
         house={house}
+        currentLord={currentLord}
+        overlord={overlord}
+        heir={heir}
+        swornMembers={swornMembers}
+        founder={founder}
       />
     </>
   );

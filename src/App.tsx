@@ -15,7 +15,7 @@ export function App() {
           height: "100vh",
         }}
       >
-        {/* don't understand the route props */}
+        {/* the route props? */}
         <nav style={{ backgroundColor: "red" }}>
           <h1>nav</h1>
           <Link to="nine-houses">nine-houses</Link>
