@@ -3,12 +3,7 @@
 const Modal = ({
   isOpen,
   onClose,
-  house,
-  currentLord,
-  overlord,
-  heir,
-  swornMembers,
-  founder,
+  data: { house, currentLord, overlord, heir, swornMembers, founder },
 }) => {
   if (!isOpen) return null;
   // const [currentLord, setCurrentLord] = useState("");
@@ -76,7 +71,9 @@ const Modal = ({
           <li>diedOut:{house?.diedOut}</li>
           <li>ancestralWeapons: {house?.ancestralWeapons}</li>
           <li>cadetBranches: {house?.cadetBranches}</li>
-          <li>swornMembers: {swornMembers.map((member) => ` ${member} |`)}</li>
+          <li>
+            swornMembers: {swornMembers.map((member) => ` ${member.name} |`)}
+          </li>
         </ul>
         <div
           style={{

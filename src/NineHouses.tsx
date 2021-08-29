@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 
 import { useState } from "react";
 import Modal from "./Modal";
@@ -38,17 +38,17 @@ interface House {
   swornMembers: Array<string>;
 }
 const NineHouses = () => {
-  const houseData = [
-    { greyjoy: 169 },
-    { tully: 395 },
-    { baratheon: 17 },
-    { lannister: 229 },
-    { stark: 362 },
-    { targaryen: 378 },
-    { arryn: 7 },
-    { martell: 285 },
-    { tyrell: 398 },
-  ];
+  const houseData = {
+    greyjoy: 169,
+    tully: 395,
+    baratheon: 17,
+    lannister: 229,
+    stark: 362,
+    targaryen: 378,
+    arryn: 7,
+    martell: 285,
+    tyrell: 398,
+  };
 
   return (
     <>
@@ -63,32 +63,37 @@ const NineHouses = () => {
           flexWrap: "wrap",
         }}
       >
-        {houseData.map((data) => (
-          <HouseCard
-            key={Object.values(data)}
-            houseId={data[Object.keys(data)]}
-            houseName={Object.keys(data)}
-          />
+        {Object.entries(houseData).map(([k, v]) => (
+          <HouseCard key={k} houseId={v} houseName={k} />
         ))}
       </div>
     </>
   );
 };
+
+interface Data {
+  house: House;
+  swornMembers: any;
+  currentLord: any;
+  overlord: any;
+  heir: any;
+  founder: any;
+}
 interface HouseProps {
-  //type of key?
-  key: Key | null | undefined;
   houseId: number;
   houseName: string[];
 }
 
 const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
-  const [house, setHouse] = useState<null | House>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [currentLord, setCurrentLord] = useState("");
-  const [overlord, setOverlord] = useState("");
-  const [heir, setHeir] = useState("");
-  const [founder, setFounder] = useState("");
-  const [swornMembers, setSwornMembers] = useState<Array<string>>([]);
+  const [data, setData] = useState<Data>({
+    house: "",
+    swornMembers: [],
+    currentLord: { name: "Unknown" },
+    overlord: { name: "Unknown" },
+    heir: { name: "Unknown" },
+    founder: { name: "Unknown" },
+  });
 
   return (
     <>
@@ -97,43 +102,8 @@ const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
         style={{
           padding: "8px 24px",
         }}
-        onClick={() => {
-          fetch(`https://anapioficeandfire.com/api/houses/${houseId}`)
-            .then((x) => x.json())
-            .then((rsp) => {
-              if (rsp.currentLord) {
-                fetch(rsp.currentLord)
-                  .then((x) => x.json())
-                  .then((rsp) => setCurrentLord(rsp));
-              }
-              if (rsp.overlord) {
-                fetch(rsp.overlord)
-                  .then((x) => x.json())
-                  .then((rsp) => setOverlord(rsp));
-              }
-              if (rsp.heir) {
-                fetch(rsp.heir)
-                  .then((x) => x.json())
-                  .then((rsp) => setHeir(rsp));
-              }
-              if (rsp.founder) {
-                fetch(rsp.founder)
-                  .then((x) => x.json())
-                  .then((rsp) => setFounder(rsp));
-              }
-              if (rsp.swornMembers.length > 1) {
-                let ListOfSwornMembers = [];
-                for (let i = 0; i < rsp.swornMembers.length; i++) {
-                  fetch(rsp.swornMembers[i])
-                    .then((x) => x.json())
-                    .then((rsp) => ListOfSwornMembers.push(rsp.name));
-                }
-                setSwornMembers(ListOfSwornMembers);
-              }
-
-              setHouse(rsp);
-            });
-
+        onClick={async () => {
+          setData(await fetchData(houseId));
           setModalIsOpen(true);
         }}
       >
@@ -142,14 +112,45 @@ const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
       <Modal
         isOpen={modalIsOpen}
         onClose={() => setModalIsOpen(false)}
-        house={house}
-        currentLord={currentLord}
-        overlord={overlord}
-        heir={heir}
-        swornMembers={swornMembers}
-        founder={founder}
+        data={data}
       />
     </>
   );
 };
 export default NineHouses;
+
+const fetchJSON = (url: string) => fetch(url).then((rsp) => rsp.json());
+const fetchJSONOrDefault = <A,>(url: string, def: A) =>
+  url === "" ? Promise.resolve(def) : fetchJSON(url);
+
+const fetchData = async (houseId: string): Data => {
+  const houseRsp: House = await fetchJSON(
+    `https://anapioficeandfire.com/api/houses/${houseId}`
+  );
+
+  const getSwornMembers = () =>
+    Promise.all(houseRsp.swornMembers.map((member) => fetchJSON(member)));
+
+  const [
+    swornMembers, //
+    currentLord,
+    overlord,
+    heir,
+    founder,
+  ] = await Promise.all([
+    getSwornMembers(),
+    fetchJSONOrDefault(houseRsp.currentLord, { name: "Unknown" }),
+    fetchJSONOrDefault(houseRsp.overlord, { name: "Unknown" }),
+    fetchJSONOrDefault(houseRsp.heir, { name: "Unknown" }),
+    fetchJSONOrDefault(houseRsp.founder, { name: "Unknown" }),
+  ]);
+
+  return {
+    house: houseRsp,
+    swornMembers,
+    currentLord,
+    overlord,
+    heir,
+    founder,
+  };
+};
