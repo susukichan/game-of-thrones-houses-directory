@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NineHouses from "./NineHouses";
 import ListOfHouses from "./ListOfHouses";
+import SortByRegions from "./SortByRegions";
 
 export function App() {
   return (
@@ -14,10 +15,12 @@ export function App() {
           height: "100vh",
         }}
       >
+        {/* don't understand the route props */}
         <nav style={{ backgroundColor: "red" }}>
           <h1>nav</h1>
           <Link to="nine-houses">nine-houses</Link>
           <Link to="list-of-houses">list-of-houses</Link>
+          <Link to="sort-by-regions">sort-by-regions</Link>
         </nav>
         <main style={{ backgroundColor: "grey", flex: 1 }}>
           <Switch>
@@ -26,6 +29,9 @@ export function App() {
             </Route>
             <Route path="/list-of-houses">
               {(routeProps) => <ListOfHouses routeProps={routeProps} />}
+            </Route>
+            <Route path="/sort-by-regions">
+              <SortByRegions />
             </Route>
             <Route>
               <h1>not found</h1>

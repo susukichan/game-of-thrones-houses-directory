@@ -1,5 +1,8 @@
 // @ts-nocheck
+
 import { useState } from "react";
+import Modal from "./Modal";
+
 interface House {
   /** The hypermedia URL of this resource */
   url: string;
@@ -35,43 +38,80 @@ interface House {
   swornMembers: Array<string>;
 }
 const NineHouses = () => {
+  const houseData = [
+    { greyjoy: 169 },
+    { tully: 395 },
+    { baratheon: 17 },
+    { lannister: 229 },
+    { stark: 362 },
+    { targaryen: 378 },
+    { arryn: 7 },
+    { martell: 285 },
+    { tyrell: 398 },
+  ];
+
   return (
-    <div>
-      <h1>NineHouses</h1>
-      <HouseCard houseId={169} />
-      <hr />
-      <HouseCard houseId={45} />
-      <hr />
-      <HouseCard houseId={2} />
-      <hr />
-      <HouseCard houseId={345} />
-      <hr />
-      <HouseCard houseId={34} />
-      <hr />
-      <HouseCard houseId={24} />
-      <hr />
-      <HouseCard houseId={56} />
-      <hr />
-    </div>
+    <>
+      <div
+        className="container"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          maxWidth: "1280px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          flexWrap: "wrap",
+        }}
+      >
+        {houseData.map((data) => (
+          <HouseCard
+            key={Object.values(data)}
+            houseId={data[Object.keys(data)]}
+            houseName={Object.keys(data)}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 interface HouseProps {
+  //don't understand
+  key: Key | null | undefined;
   houseId: number;
+  houseName: string[];
 }
-// const add = (x: number, y: number): number => x + y;
-const HouseCard = ({ houseId }: HouseProps): JSX.Element => {
+
+const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
   const [house, setHouse] = useState<null | House>(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [currentLord, setCurrentLord] = useState("");
+
   return (
-    <div
-      className="card"
-      onClick={() => {
-        fetch(`https://anapioficeandfire.com/api/houses/${houseId}`)
-          .then((x) => x.json())
-          .then((rsp) => setHouse(rsp));
-      }}
-    >
-      {house ? house.region : <h1>click me to get a house</h1>}
-    </div>
+    <>
+      <div
+        className="card"
+        style={{
+          padding: "8px 24px",
+        }}
+        onClick={() => {
+          fetch(`https://anapioficeandfire.com/api/houses/${houseId}`)
+            .then((x) => x.json())
+            .then((rsp) => setHouse(rsp));
+          // fetch(house?.currentLord)
+          //   .then((x) => console.log(x))
+          //   .then((rsp) => console.log(house.currentLord.name));
+
+          setModalIsOpen(true);
+        }}
+      >
+        <img src={`${houseName}.jpg`} alt={houseName} />
+      </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        house={house}
+      />
+    </>
   );
 };
 export default NineHouses;
