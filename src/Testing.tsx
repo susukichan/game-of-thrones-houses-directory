@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import chroma from "chroma-js";
+// import chroma from "chroma-js";
 
 import Select from "react-select";
 import makeAnimated from "react-select/animated";

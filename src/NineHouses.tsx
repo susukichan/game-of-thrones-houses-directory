@@ -51,23 +51,21 @@ const NineHouses = () => {
   };
 
   return (
-    <>
-      <div
-        className="container"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          maxWidth: "1280px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          flexWrap: "wrap",
-        }}
-      >
-        {Object.entries(houseData).map(([k, v]) => (
-          <HouseCard key={k} houseId={v} houseName={k} />
-        ))}
-      </div>
-    </>
+    <div
+      className="container"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        maxWidth: "1280px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        flexWrap: "wrap",
+      }}
+    >
+      {Object.entries(houseData).map(([k, v]) => (
+        <HouseCard key={k} houseId={v} houseName={k} />
+      ))}
+    </div>
   );
 };
 
