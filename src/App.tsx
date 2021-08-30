@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NineHouses from "./NineHouses";
 import ListOfHouses from "./ListOfHouses";
 import SortByRegions from "./SortByRegions";
+import Testing from "./Testing";
 
 export function App() {
   return (
@@ -21,6 +22,7 @@ export function App() {
           <Link to="nine-houses">nine-houses</Link>
           <Link to="list-of-houses">list-of-houses</Link>
           <Link to="sort-by-regions">sort-by-regions</Link>
+          <Link to="testing">testing</Link>
         </nav>
         <main style={{ backgroundColor: "grey", flex: 1 }}>
           <Switch>
@@ -32,6 +34,9 @@ export function App() {
             </Route>
             <Route path="/sort-by-regions">
               <SortByRegions />
+            </Route>
+            <Route path="/testing">
+              <Testing />
             </Route>
             <Route>
               <h1>not found</h1>

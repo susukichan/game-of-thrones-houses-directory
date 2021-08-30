@@ -6,16 +6,6 @@ const Modal = ({
   data: { house, currentLord, overlord, heir, swornMembers, founder },
 }) => {
   if (!isOpen) return null;
-  // const [currentLord, setCurrentLord] = useState("");
-  // const houseProperties = [
-  //   "name",
-  //   "region",
-  //   "coatOfArms",
-  //   "words",
-  //   "seats",
-  //   "currentLord",
-  //   "heir",
-  // ];
 
   return (
     <>
