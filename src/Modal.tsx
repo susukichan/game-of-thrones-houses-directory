@@ -1,39 +1,20 @@
 // @ts-nocheck
+import DataBlock from "./DataBlock";
+import "./modal-style.css";
 
 const Modal = ({
   isOpen,
   onClose,
-  data: { house, currentLord, overlord, heir, swornMembers, founder },
+  houseName,
+  data,
+  // data: { house, currentLord, overlord, heir, swornMembers, founder },
 }) => {
   if (!isOpen) return null;
 
   return (
     <>
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: "rgba(0,0,0,.7)",
-          zIndex: 1000,
-        }}
-        className="modal-overlay"
-      ></div>
-      <div
-        style={{
-          backgroundColor: "green",
-          position: "fixed",
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%,-50%)",
-          padding: "50px",
-          zIndex: 1000,
-        }}
-        className="modal"
-      >
-        <h2>name: {house?.name}</h2>
+      <div className="modal-overlay"></div>
+      <div className={`modal modal--${houseName}`}>
         {/* cannot make it .eachHouse */}
         {/* <ul>
           {houseProperties.map((eachHouse) => (
@@ -42,35 +23,31 @@ const Modal = ({
             </li>
             ))}
           </ul> */}
-        <ul
-          style={{
-            listStyleType: "none",
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          <li>region: {house?.region}</li>
-          <li>coatOfArms: {house?.coatOfArms}</li>
-          <li>words: {house?.words}</li>
-          <li>seats: {house?.seats}</li>
-          <li>currentLord: {currentLord.name}</li>
-          <li>heir: {heir.name}</li>
-          <li>overlord: {overlord.name}</li>
-          <li>founded: {house?.founded}</li>
-          <li>founder: {founder.name}</li>
-          <li>diedOut:{house?.diedOut}</li>
-          <li>ancestralWeapons: {house?.ancestralWeapons}</li>
-          <li>cadetBranches: {house?.cadetBranches}</li>
-          <li>
-            swornMembers: {swornMembers.map((member) => ` ${member.name} |`)}
-          </li>
-        </ul>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className="modal-content">
+          {/* <h2>{house?.name}</h2> */}
+          <DataBlock data={data} />
+          {/* <ul className="modal-content-list">
+            <li>Region: {house?.region}</li>
+            <li>Coat of Arms: {house?.coatOfArms}</li>
+            <li>Words: {house?.words}</li>
+            <li>Seats: {house?.seats}</li>
+            <li>Current Lord: {currentLord.name}</li>
+            <li>Heir: {heir.name}</li>
+            <li>Overlord: {overlord.name}</li>
+            {house?.founded ? <li>Founded: {house?.founded}</li> : null}
+
+            <li>founder: {founder.name}</li>
+            {house?.diedOut ? <li>Died out: {house?.diedOut}</li> : null}
+            {house?.ancestralWeapon ? (
+              <li>Ancestral weapons: {house?.ancestralWeapons}</li>
+            ) : null}
+            <li>Cadet branches: {house?.cadetBranches}</li>
+            <li>
+              Sworn members: {swornMembers.map((member) => ` ${member.name} |`)}
+            </li>
+          </ul> */}
+        </div>
+        <div className="modal-buttons">
           <button onClick={onClose}>
             found more houses in the same region
           </button>

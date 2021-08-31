@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import { useState, useEffect } from "react";
-// import ListItem from "./ListItem";
+import ListItem from "./ListItem";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import "./list-of-houses-style.css";
@@ -94,11 +94,6 @@ const ListOfHouses = (props: any) => {
   return (
     <div className="container">
       <div className="select-bar">
-        {/* <input
-            type="text"
-            placeholder="Search name / region / words/... "
-            aria-label="Search name / region / words/..."
-          /> */}
         <form
           id="search-form"
           action=""
@@ -108,20 +103,22 @@ const ListOfHouses = (props: any) => {
             const params = new URLSearchParams(
               Object.fromEntries(
                 [
-                  ["region", region.value ?? ""],
+                  ["region", region?.value ?? ""],
                   ["hasWords", hasWords],
                   ["hasTitles", hasTitles],
                   ["hasSeats", hasSeats],
                   ["hasDiedOut", hasDiedOut],
                   ["hasAncestralWeapons", hasAncestralWeapons],
-                  ["pageSize", pageSize.value ?? ""],
+                  ["pageSize", pageSize?.value ?? ""],
                 ].filter(([, v]) => Boolean(v))
               )
             );
 
             fetch(`https://anapioficeandfire.com/api/houses?${params}`)
               .then((x) => x.json())
-              .then((rsp) => setHouses(rsp));
+              .then((rsp) => {
+                setHouses(rsp);
+              });
           }}
         >
           <Select
@@ -153,14 +150,6 @@ const ListOfHouses = (props: any) => {
             isSearchable
             className="select-page-size"
           />
-
-          {/* <input
-              type="text"
-              placeholder="Search words"
-              aria-label="Search words"
-              onChange={(e) => setWordsInput(e.target.value)}
-              value={wordsInput}
-            /> */}
           <div>
             <button type="submit" id="search-btn">
               Search
@@ -169,6 +158,11 @@ const ListOfHouses = (props: any) => {
         </form>
       </div>
       <h1>houses</h1>
+      <div className="list-items">
+        {houses.map((house) => (
+          <ListItem key={house.url} data={house} />
+        ))}
+      </div>
       <pre>{JSON.stringify(houses, null, 2)}</pre>
       {/* <h3>route props</h3>
         <pre>{JSON.stringify(props, null, 2)}</pre> */}

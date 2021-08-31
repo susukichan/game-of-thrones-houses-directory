@@ -1,30 +1,39 @@
 import "./App.css";
+import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NineHouses from "./NineHouses";
 import ListOfHouses from "./ListOfHouses";
 import SortByRegions from "./SortByRegions";
+import Homepage from "./Homepage";
 import Testing from "./Testing";
 
 export function App() {
+  const [backgroundImage, setBackgoundImage] = useState("url(homepage.jpg)");
+
   return (
     <Router>
-      <div
-        className="App"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-        }}
-      >
+      <div className="App" style={{ backgroundImage: backgroundImage }}>
         {/* the route props? */}
-        <nav style={{ backgroundColor: "red" }}>
-          <h1>nav</h1>
-          <Link to="nine-houses">nine-houses</Link>
-          <Link to="list-of-houses">list-of-houses</Link>
-          <Link to="sort-by-regions">sort-by-regions</Link>
+        <nav className="nav-bar">
+          <Link to="/" onClick={() => setBackgoundImage("url(homepage.jpg)")}>
+            Home
+          </Link>
+          <Link
+            to="nine-houses"
+            onClick={() => setBackgoundImage("url(nine-houses.jpg)")}
+          >
+            Nine Houses
+          </Link>
+          <Link
+            to="list-of-houses"
+            onClick={() => setBackgoundImage("url(list-of-houses.jpg)")}
+          >
+            List of Houses
+          </Link>
+          <Link to="sort-by-regions">Sort by Regions</Link>
           <Link to="testing">testing</Link>
         </nav>
-        <main style={{ backgroundColor: "grey", flex: 1 }}>
+        <main className="main">
           <Switch>
             <Route path="/nine-houses">
               <NineHouses />
@@ -39,7 +48,7 @@ export function App() {
               <Testing />
             </Route>
             <Route>
-              <h1>not found</h1>
+              <Homepage />
             </Route>
           </Switch>
         </main>

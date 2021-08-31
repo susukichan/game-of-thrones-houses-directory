@@ -62,9 +62,26 @@ const NineHouses = () => {
         flexWrap: "wrap",
       }}
     >
-      {Object.entries(houseData).map(([k, v]) => (
-        <HouseCard key={k} houseId={v} houseName={k} />
-      ))}
+      <div className="page-title">Nine Great Houses of Westeros</div>
+      <div
+        className="content-wrap"
+        style={{
+          backgroundColor: "#FAFAFA",
+          width: "1280px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          position: "absolute",
+          top: "60%",
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          paddingTop: "2rem",
+        }}
+      >
+        {Object.entries(houseData).map(([k, v]) => (
+          <HouseCard key={k} houseId={v} houseName={k} />
+        ))}
+      </div>
     </div>
   );
 };
@@ -98,19 +115,27 @@ const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
       <div
         className="card"
         style={{
-          padding: "8px 24px",
+          padding: "16px 24px",
         }}
         onClick={async () => {
           setData(await fetchData(houseId));
           setModalIsOpen(true);
         }}
       >
-        <img src={`${houseName}.jpg`} alt={houseName} />
+        <img
+          src={`${houseName}.jpg`}
+          alt={houseName}
+          style={{
+            boxShadow: "5px -1px 28px 7px rgba(166,148,148,0.33)",
+          }}
+        />
       </div>
+
       <Modal
         isOpen={modalIsOpen}
         onClose={() => setModalIsOpen(false)}
         data={data}
+        houseName={houseName}
       />
     </>
   );
@@ -129,19 +154,14 @@ const fetchData = async (houseId: string): Data => {
   const getSwornMembers = () =>
     Promise.all(houseRsp.swornMembers.map((member) => fetchJSON(member)));
 
-  const [
-    swornMembers, //
-    currentLord,
-    overlord,
-    heir,
-    founder,
-  ] = await Promise.all([
-    getSwornMembers(),
-    fetchJSONOrDefault(houseRsp.currentLord, { name: "Unknown" }),
-    fetchJSONOrDefault(houseRsp.overlord, { name: "Unknown" }),
-    fetchJSONOrDefault(houseRsp.heir, { name: "Unknown" }),
-    fetchJSONOrDefault(houseRsp.founder, { name: "Unknown" }),
-  ]);
+  const [swornMembers, currentLord, overlord, heir, founder] =
+    await Promise.all([
+      getSwornMembers(),
+      fetchJSONOrDefault(houseRsp.currentLord, { name: "Unknown" }),
+      fetchJSONOrDefault(houseRsp.overlord, { name: "Unknown" }),
+      fetchJSONOrDefault(houseRsp.heir, { name: "Unknown" }),
+      fetchJSONOrDefault(houseRsp.founder, { name: "Unknown" }),
+    ]);
 
   return {
     house: houseRsp,
