@@ -1,8 +1,6 @@
-// @ts-nocheck
-
 import "./homepage-style.css";
 
-const Homepage = () => {
+export const Homepage = (): JSX.Element => {
   return (
     <div className="homepage container">
       <h1>
@@ -13,5 +11,3 @@ const Homepage = () => {
     </div>
   );
 };
-
-export default Homepage;

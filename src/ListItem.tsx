@@ -1,14 +1,25 @@
-// @ts-nocheck
-
 import "./list-item-style.css";
-import DataBlock from "./DataBlock";
+import { DataBlock } from "./DataBlock";
+import { House, HouseWithMetadata, mkInitialHouseMetadata } from "./types";
+import { useEffect, useState } from "react";
+import { fetchHouseMetaData } from "./api";
 
-const ListItem = (data) => {
+interface ListItemProps {
+  house: House;
+}
+
+export const ListItem = ({ house }: ListItemProps): JSX.Element => {
+  const [houseWithMetadata, setHouseWithMetadata] = useState<HouseWithMetadata>(
+    mkInitialHouseMetadata
+  );
+
+  useEffect(() => {
+    fetchHouseMetaData(house).then(setHouseWithMetadata);
+  }, [house]);
+
   return (
     <div className="list-item">
-      <DataBlock data={data} />
+      <DataBlock houseWithMetadata={houseWithMetadata} />
     </div>
   );
 };
-
-export default ListItem;

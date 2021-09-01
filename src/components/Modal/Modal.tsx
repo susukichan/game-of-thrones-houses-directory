@@ -1,17 +1,26 @@
-// @ts-nocheck
-import DataBlock from "./DataBlock";
-import "./modal-style.css";
-import Loading from "./Loading";
+import { DataBlock } from "../../DataBlock";
+import { HasHouseWithMetadata } from "../../types";
+import { Loading } from "../Loading/Loading";
 
-const Modal = ({
+import "./modal-style.css";
+
+interface ModalProps extends HasHouseWithMetadata {
+  isOpen: boolean;
+  onClose: () => void;
+  houseName: string;
+  loading: boolean;
+}
+
+export const Modal = ({
   isOpen,
   onClose,
   houseName,
-  data,
+  houseWithMetadata,
   loading,
-  // data: { house, currentLord, overlord, heir, swornMembers, founder },
-}) => {
-  if (!isOpen) return null;
+}: ModalProps): JSX.Element => {
+  if (!isOpen) {
+    return <></>;
+  }
 
   return (
     <>
@@ -28,7 +37,11 @@ const Modal = ({
         <div className="modal-content">
           {/* <h2>{house?.name}</h2> */}
 
-          {loading ? <Loading /> : <DataBlock data={data} />}
+          {loading ? (
+            <Loading />
+          ) : (
+            <DataBlock houseWithMetadata={houseWithMetadata} />
+          )}
           {/* <DataBlock data={data} /> */}
           {/* <ul className="modal-content-list">
             <li>Region: {house?.region}</li>
@@ -61,5 +74,3 @@ const Modal = ({
     </>
   );
 };
-
-export default Modal;

@@ -2,26 +2,57 @@
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #search-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   width: 100%;
-  column-gap: 2rem;
-  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-#search-btn {
+#search-form > div {
+  width: 30%;
+  margin-right: 2rem;
+}
+
+#search-btn,
+.next-button,
+.prev-button {
   width: 10rem;
-  height: 100%;
+  height: 2rem;
   cursor: pointer;
   border-radius: 0.5rem;
   border: 0;
-  box-shadow: -1px 1px 10px 2px rgba(166, 148, 148, 0.63);
+  font-size: 1rem;
+  opacity: 0.8;
+  background-color: #d84844;
+  margin: 2rem;
+  transition: 0.5s;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* .list-items {
+#search-btn:hover {
+  opacity: 1;
+}
+
+.search-result {
   display: flex;
- 
-} */
+  justify-content: center;
+  flex-direction: column;
+}
+
+.list-of-houses-page-title {
+  color: #ffe251;
+  font-size: 3rem;
+  margin-top: 15%;
+  text-shadow: 3px 3px 6px rgba(150, 150, 150, 1);
+}
+
+.next-prev-buttons {
+  margin-bottom: 6rem;
+  display: flex;
+  justify-content: center;
+}

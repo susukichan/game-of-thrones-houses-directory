@@ -1,6 +1,6 @@
 import "./loading-style.css";
 
-const Loading = (): JSX.Element => (
+export const Loading = (): JSX.Element => (
   <div className="loading-screen">
     <div className="lds-ripple">
       <div></div>
@@ -8,4 +8,3 @@ const Loading = (): JSX.Element => (
     </div>
   </div>
 );
-export default Loading;

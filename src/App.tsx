@@ -1,10 +1,10 @@
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import NineHouses from "./NineHouses";
-import ListOfHouses from "./ListOfHouses";
-import SortByRegions from "./SortByRegions";
-import Homepage from "./Homepage";
+import { NineHouses } from "./NineHouses";
+import { ListOfHouses } from "./ListOfHouses";
+import { Homepage } from "./Homepage";
+import "./components/FontAwesomeIcon/FontAwesomeIcon";
 
 export function App() {
   const [backgroundImage, setBackgoundImage] = useState("url(homepage.jpg)");
@@ -29,7 +29,6 @@ export function App() {
           >
             List of Houses
           </Link>
-          <Link to="sort-by-regions">Sort by Regions</Link>
         </nav>
         <main className="main">
           <Switch>
@@ -37,10 +36,7 @@ export function App() {
               <NineHouses />
             </Route>
             <Route path="/list-of-houses">
-              {(routeProps) => <ListOfHouses routeProps={routeProps} />}
-            </Route>
-            <Route path="/sort-by-regions">
-              <SortByRegions />
+              <ListOfHouses />
             </Route>
             <Route>
               <Homepage />
