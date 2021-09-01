@@ -16,6 +16,7 @@
     "@types/react-select": "^4.0.17",
     "chroma-js": "^2.1.2",
     "force": "^0.0.3",
+    "parse-link-header": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.0",

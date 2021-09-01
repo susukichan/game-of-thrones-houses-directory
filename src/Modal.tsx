@@ -1,19 +1,21 @@
 // @ts-nocheck
 import DataBlock from "./DataBlock";
 import "./modal-style.css";
+import Loading from "./Loading";
 
 const Modal = ({
   isOpen,
   onClose,
   houseName,
   data,
+  loading,
   // data: { house, currentLord, overlord, heir, swornMembers, founder },
 }) => {
   if (!isOpen) return null;
 
   return (
     <>
-      <div className="modal-overlay"></div>
+      <div className="modal-overlay" onClick={onClose}></div>
       <div className={`modal modal--${houseName}`}>
         {/* cannot make it .eachHouse */}
         {/* <ul>
@@ -25,7 +27,9 @@ const Modal = ({
           </ul> */}
         <div className="modal-content">
           {/* <h2>{house?.name}</h2> */}
-          <DataBlock data={data} />
+
+          {loading ? <Loading /> : <DataBlock data={data} />}
+          {/* <DataBlock data={data} /> */}
           {/* <ul className="modal-content-list">
             <li>Region: {house?.region}</li>
             <li>Coat of Arms: {house?.coatOfArms}</li>

@@ -5,7 +5,6 @@ import NineHouses from "./NineHouses";
 import ListOfHouses from "./ListOfHouses";
 import SortByRegions from "./SortByRegions";
 import Homepage from "./Homepage";
-import Testing from "./Testing";
 
 export function App() {
   const [backgroundImage, setBackgoundImage] = useState("url(homepage.jpg)");
@@ -31,7 +30,6 @@ export function App() {
             List of Houses
           </Link>
           <Link to="sort-by-regions">Sort by Regions</Link>
-          <Link to="testing">testing</Link>
         </nav>
         <main className="main">
           <Switch>
@@ -43,9 +41,6 @@ export function App() {
             </Route>
             <Route path="/sort-by-regions">
               <SortByRegions />
-            </Route>
-            <Route path="/testing">
-              <Testing />
             </Route>
             <Route>
               <Homepage />

@@ -101,6 +101,7 @@ interface HouseProps {
 
 const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<Data>({
     house: "",
     swornMembers: [],
@@ -118,8 +119,10 @@ const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
           padding: "16px 24px",
         }}
         onClick={async () => {
-          setData(await fetchData(houseId));
           setModalIsOpen(true);
+          setLoading(true);
+          setData(await fetchData(houseId));
+          setLoading(false);
         }}
       >
         <img
@@ -135,6 +138,7 @@ const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
         isOpen={modalIsOpen}
         onClose={() => setModalIsOpen(false)}
         data={data}
+        loading={loading}
         houseName={houseName}
       />
     </>
