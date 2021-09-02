@@ -39,7 +39,8 @@ interface HasName {
 
 export interface HouseWithMetadata {
   house: null | House;
-  swornMembers: Array<string>;
+  swornMembers: Array<any>;
+  cadetBranches: Array<any>;
   currentLord: HasName;
   overlord: HasName;
   heir: HasName;
@@ -53,6 +54,7 @@ export interface HasHouseWithMetadata {
 export const mkInitialHouseMetadata = (): HouseWithMetadata => ({
   house: null,
   swornMembers: [],
+  cadetBranches: [],
   currentLord: { name: "Unknown" },
   overlord: { name: "Unknown" },
   heir: { name: "Unknown" },

@@ -18,16 +18,18 @@ export const NineHouses = () => {
   };
 
   return (
-    <div className="nine-houses container">
-      <div className="nine-houses-page-title">
-        Nine Great Houses of Westeros
-      </div>
-      <div className="content-wrap">
-        {Object.entries(houseIdFromHouseName).map(([k, v]) => (
-          <HouseCard key={k} houseId={v} houseName={k} />
-        ))}
-      </div>
-    </div>
+    <>
+      <section className="nine-houses container">
+        <h1 className="nine-houses-page-title">Great Houses of Westeros</h1>
+      </section>
+      <section className="nine-houses-content container">
+        <div className="content-wrap">
+          {Object.entries(houseIdFromHouseName).map(([k, v]) => (
+            <HouseCard key={k} houseId={v} houseName={k} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
 

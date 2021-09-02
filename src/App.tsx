@@ -12,25 +12,42 @@ export function App() {
   return (
     <Router>
       <div className="App" style={{ backgroundImage: backgroundImage }}>
-        {/* the route props? */}
-        <nav className="nav-bar">
-          <Link to="/" onClick={() => setBackgoundImage("url(homepage.jpg)")}>
-            Home
-          </Link>
-          <Link
-            to="nine-houses"
-            onClick={() => setBackgoundImage("url(nine-houses.jpg)")}
-          >
-            Nine Houses
-          </Link>
-          <Link
-            to="list-of-houses"
-            onClick={() => setBackgoundImage("url(list-of-houses.jpg)")}
-          >
-            List of Houses
-          </Link>
-        </nav>
-        <main className="main">
+        <header>
+          <h1 className="logo">⚔️</h1>
+          <input type="checkbox" id="nav-toggle" className="nav-toggle" />
+          <nav>
+            <ul>
+              <li>
+                <Link
+                  to="/"
+                  onClick={() => setBackgoundImage("url(homepage.jpg)")}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="nine-houses"
+                  onClick={() => setBackgoundImage("url(nine-houses.jpg)")}
+                >
+                  Nine Houses
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="list-of-houses"
+                  onClick={() => setBackgoundImage("url(list-of-houses.jpg)")}
+                >
+                  List of Houses
+                </Link>
+              </li>
+            </ul>
+          </nav>
+          <label htmlFor="nav-toggle" className="nav-toggle-label">
+            <span></span>
+          </label>
+        </header>
+        <main className="main" style={{ backgroundImage: backgroundImage }}>
           <Switch>
             <Route path="/nine-houses">
               <NineHouses />

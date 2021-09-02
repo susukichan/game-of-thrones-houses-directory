@@ -1,4 +1,5 @@
 import { HasHouseWithMetadata } from "./types";
+import "./data-block-style.css";
 
 interface DataBlockProps extends HasHouseWithMetadata {}
 
@@ -9,34 +10,120 @@ export const DataBlock = ({
     overlord,
     heir,
     swornMembers,
+    cadetBranches,
     founder,
   },
 }: DataBlockProps): JSX.Element => {
   const maybeWeapons = house?.ancestralWeapons.join(",");
 
   return (
-    <div className="data-block" style={{ backgroundColor: "white" }}>
-      <h1>this is Data Block</h1>
-      <div className="modal-content">
-        <h2>{house?.name}</h2>
-        <ul className="modal-content-list">
-          <li>Region: {house?.region}</li>
-          <li>Coat of Arms: {house?.coatOfArms}</li>
-          <li>Words: {house?.words}</li>
-          <li>Seats: {house?.seats}</li>
-          <li>Current Lord: {currentLord.name}</li>
-          <li>Heir: {heir.name}</li>
-          <li>Overlord: {overlord.name}</li>
-          {house?.founded && <li>Founded: {house?.founded}</li>}
+    <div className="data-block">
+      <h2 className="data-block__title">{house?.name}</h2>
+      <div className="data-block__content-list">
+        <div className="data-block__content-row">
+          <div className="data-block__content-row-title">
+            <h4>🗺 Region:</h4>
+          </div>
+          <div>{house?.region}</div>
+        </div>
+        {house?.coatOfArms && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>🛡 Coat of Arms:</h4>
+            </div>
+            <div>{house?.coatOfArms}</div>
+          </div>
+        )}
+        {house?.words && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>🎤 Words:</h4>
+            </div>
+            <div>{house?.words}</div>
+          </div>
+        )}
+        {house?.seats && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>🪑 Seats:</h4>
+            </div>
+            <div>{house?.seats}</div>
+          </div>
+        )}
+        {currentLord.name && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>🧙 Current Lord:</h4>
+            </div>
+            <div>{currentLord.name}</div>
+          </div>
+        )}
+        {heir.name && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>👨‍👩‍👦 Heir:</h4>
+            </div>
+            <div>{heir.name}</div>
+          </div>
+        )}
+        {overlord.name && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>🧝 Overlord:</h4>
+            </div>
+            <div>{overlord.name}</div>
+          </div>
+        )}
+        {house?.founded && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>📅 Founded:</h4>
+            </div>
+            <div>{house?.founded}</div>
+          </div>
+        )}
+        {founder.name && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>👨‍🦳 Founder:</h4>
+            </div>
+            <div>{founder.name}</div>
+          </div>
+        )}
+        {house?.diedOut && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              {" "}
+              <h4>🧟 Died out:</h4>
+            </div>
+            <div>{house?.diedOut}</div>
+          </div>
+        )}
+        {maybeWeapons && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>🪓 Ancestral weapons:</h4>
+            </div>
+            <div>{maybeWeapons}</div>
+          </div>
+        )}
 
-          <li>founder: {founder.name}</li>
-          {house?.diedOut && <li>Died out: {house?.diedOut}</li>}
-          {maybeWeapons && <li>Ancestral weapons: {maybeWeapons}</li>}
-          {/* <li>Cadet branches: {house?.cadetBranches}</li> */}
-          <li>
-            {/* Sworn members: {swornMembers.map((member) => ` ${member.name} |`)} */}
-          </li>
-        </ul>
+        {cadetBranches.length > 1 && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>🏰 Cadet branches:</h4>
+            </div>
+            <div>{cadetBranches.map((member) => ` ${member.name}．`)}</div>
+          </div>
+        )}
+        {swornMembers.length > 1 && (
+          <div className="data-block__content-row">
+            <div className="data-block__content-row-title">
+              <h4>⚔️ Sworn members:</h4>
+            </div>
+            <div>{swornMembers.map((member) => ` ${member.name} ．`)}</div>
+          </div>
+        )}
       </div>
     </div>
   );

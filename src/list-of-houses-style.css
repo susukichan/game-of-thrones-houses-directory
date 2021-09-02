@@ -1,7 +1,4 @@
-.container {
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
+.list-of-houses {
   display: flex;
   flex-direction: column;
 }
@@ -18,26 +15,6 @@
   margin-right: 2rem;
 }
 
-#search-btn,
-.next-button,
-.prev-button {
-  width: 10rem;
-  height: 2rem;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  border: 0;
-  font-size: 1rem;
-  opacity: 0.8;
-  background-color: #d84844;
-  margin: 2rem;
-  transition: 0.5s;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#search-btn:hover {
-  opacity: 1;
-}
-
 .search-result {
   display: flex;
   justify-content: center;
@@ -48,11 +25,58 @@
   color: #ffe251;
   font-size: 3rem;
   margin-top: 15%;
-  text-shadow: 3px 3px 6px rgba(150, 150, 150, 1);
+  text-shadow: 1px 1px 2px rgba(150, 150, 150, 0.37);
 }
 
 .next-prev-buttons {
   margin-bottom: 6rem;
   display: flex;
   justify-content: center;
+}
+
+#search-btn {
+  background-image: linear-gradient(
+    to right,
+    #ff512f 0%,
+    #dd2476 51%,
+    #ff512f 100%
+  );
+}
+
+.prev-button,
+.next-button {
+  background-image: linear-gradient(
+    to right,
+    #e040fb 0%,
+    #00bcd4 51%,
+    #e040fb 100%
+  );
+}
+
+#search-btn,
+.prev-button,
+.next-button {
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px #eee;
+  border: 1px solid #ced4da;
+  width: 10rem;
+  height: 2rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 2rem;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#search-btn:hover,
+.prev-button:hover,
+.next-button:hover {
+  background-position: right center;
+  color: #222;
 }

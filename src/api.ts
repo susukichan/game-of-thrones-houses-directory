@@ -14,21 +14,23 @@ export const fetchHouse = (houseId: number): Promise<House> =>
 export const fetchHouseMetaData = async (
   house: House
 ): Promise<HouseWithMetadata> => {
-  const getSwornMembers = () =>
-    Promise.all(house.swornMembers.map((member) => fetchJSON(member)));
+  const getDetail = (x: any) =>
+    Promise.all(x.map((member: any) => fetchJSON(member)));
 
-  const [swornMembers, currentLord, overlord, heir, founder] =
+  const [swornMembers, cadetBranches, currentLord, overlord, heir, founder] =
     await Promise.all([
-      getSwornMembers(),
-      fetchJSONOrDefault(house.currentLord, { name: "Unknown" }),
-      fetchJSONOrDefault(house.overlord, { name: "Unknown" }),
-      fetchJSONOrDefault(house.heir, { name: "Unknown" }),
-      fetchJSONOrDefault(house.founder, { name: "Unknown" }),
+      getDetail(house.swornMembers),
+      getDetail(house.cadetBranches),
+      fetchJSONOrDefault(house.currentLord, { name: "" }),
+      fetchJSONOrDefault(house.overlord, { name: "" }),
+      fetchJSONOrDefault(house.heir, { name: "" }),
+      fetchJSONOrDefault(house.founder, { name: "" }),
     ]);
 
   return {
     house: house,
     swornMembers,
+    cadetBranches,
     currentLord,
     overlord,
     heir,

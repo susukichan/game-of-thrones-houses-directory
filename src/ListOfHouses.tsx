@@ -120,7 +120,7 @@ export const ListOfHouses = (): JSX.Element => {
   };
 
   return (
-    <div className="container">
+    <div className="list-of-houses container">
       <div className="select-bar">
         <form
           id="search-form"
@@ -192,24 +192,21 @@ export const ListOfHouses = (): JSX.Element => {
             isSearchable
             className="select-page-size"
           />
-          <button type="submit" id="search-btn">
+          <button type="submit" id="search-btn" className="btn">
             Search <FontAwesomeIcon icon="search" />
           </button>
         </form>
       </div>
       <div className="search-result">
-        <h1 className="list-of-houses-page-title">
+        {/* <h1 className="list-of-houses-page-title">
           Let's have a deeper look into all houses
-        </h1>
+        </h1> */}
         <div className="list-items">
           {houses.map((house) => (
             <ListItem key={house.url} house={house} />
           ))}
         </div>
         {loading ? <Loading /> : <pre>{JSON.stringify(houses, null, 2)}</pre>}
-        {/* <pre>{JSON.stringify(houses, null, 2)}</pre> */}
-        {/* <h3>route props</h3>
-        <pre>{JSON.stringify(props, null, 2)}</pre> */}
       </div>
       <div className="next-prev-buttons">
         {maybePrevUrl && (
