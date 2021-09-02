@@ -20,9 +20,9 @@ export const NineHouses = () => {
   return (
     <>
       <section className="nine-houses container">
-        <h1 className="nine-houses-page-title">Great Houses of Westeros</h1>
+        <h1 className="nine-houses__title">Great Houses of Westeros</h1>
       </section>
-      <section className="nine-houses-content container">
+      <section className="nine-houses__content container">
         <div className="content-wrap">
           {Object.entries(houseIdFromHouseName).map(([k, v]) => (
             <HouseCard key={k} houseId={v} houseName={k} />

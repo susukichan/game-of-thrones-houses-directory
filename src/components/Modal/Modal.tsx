@@ -1,4 +1,4 @@
-import { DataBlock } from "../../DataBlock";
+import { DataBlock } from "../DataBlock/DataBlock";
 import { HasHouseWithMetadata } from "../../types";
 import { Loading } from "../Loading/Loading";
 
@@ -24,7 +24,7 @@ export const Modal = ({
 
   return (
     <>
-      <div className="modal-overlay" onClick={onClose}></div>
+      <div className="modal__overlay" onClick={onClose}></div>
       <div className={`modal modal--${houseName}`}>
         {loading ? (
           <Loading />
@@ -33,7 +33,7 @@ export const Modal = ({
             <div className="modal-content">
               <DataBlock houseWithMetadata={houseWithMetadata} />
             </div>
-            <button className="modal-button" onClick={onClose}>
+            <button className="modal__button" onClick={onClose}>
               close
             </button>
           </>

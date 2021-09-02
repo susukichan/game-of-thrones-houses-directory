@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import { useEffect, useState } from "react";
 import { Loading } from "./components/Loading/Loading";
-import "./list-of-houses-style.css";
-import { ListItem } from "./ListItem";
+import { ListItem } from "./components/ListItem/ListItem";
 import { House } from "./types";
+import "./list-of-houses-style.css";
 
 const customTheme = (theme: any) => {
   return {
@@ -29,6 +29,7 @@ const optionRegions = [
   { value: "The Reach", label: "🌼 The Reach" },
   { value: "The Stormlands", label: "🦌 The Stormlands" },
   { value: "Dorne", label: "🔆 Dorne" },
+  { value: "The Neck", label: "👔 The Neck" },
 ];
 
 const optionProperties = [
@@ -144,15 +145,14 @@ export const ListOfHouses = (): JSX.Element => {
             );
 
             fetch(`https://anapioficeandfire.com/api/houses?${params}`)
-              .then((x) => x.json())
+              .then((x) => {
+                setLinkHeader(x.headers.get("Link") ?? "");
+                return x.json();
+              })
               .then((rsp) => {
                 setHouses(rsp);
                 setLoading(false);
               });
-
-            fetch(`https://anapioficeandfire.com/api/houses?${params}`).then(
-              (x) => setLinkHeader(x.headers.get("Link") ?? "")
-            );
           }}
         >
           <Select
@@ -198,15 +198,13 @@ export const ListOfHouses = (): JSX.Element => {
         </form>
       </div>
       <div className="search-result">
-        {/* <h1 className="list-of-houses-page-title">
-          Let's have a deeper look into all houses
-        </h1> */}
-        <div className="list-items">
-          {houses.map((house) => (
-            <ListItem key={house.url} house={house} />
-          ))}
+        <div className="list-items ">
+          {loading ? (
+            <Loading />
+          ) : (
+            houses.map((house) => <ListItem key={house.url} house={house} />)
+          )}
         </div>
-        {loading ? <Loading /> : <pre>{JSON.stringify(houses, null, 2)}</pre>}
       </div>
       <div className="next-prev-buttons">
         {maybePrevUrl && (

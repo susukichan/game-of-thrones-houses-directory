@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -21,7 +21,7 @@
   overflow: scroll;
 }
 
-.modal-button {
+.modal__button {
   background-image: linear-gradient(
     to right,
     #ff4e50 0%,
@@ -46,7 +46,7 @@
   margin-top: 0.5rem;
 }
 
-.modal-button:hover {
+.modal__button:hover {
   background-position: right center;
   color: #222;
 }

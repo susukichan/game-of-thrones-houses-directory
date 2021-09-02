@@ -1,4 +1,4 @@
-import { HasHouseWithMetadata } from "./types";
+import { HasHouseWithMetadata } from "../../types";
 import "./data-block-style.css";
 
 interface DataBlockProps extends HasHouseWithMetadata {}
@@ -42,7 +42,7 @@ export const DataBlock = ({
             <div>{house?.words}</div>
           </div>
         )}
-        {house?.seats && (
+        {house?.seats[0] && (
           <div className="data-block__content-row">
             <div className="data-block__content-row-title">
               <h4>🪑 Seats:</h4>

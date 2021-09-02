@@ -1,8 +1,8 @@
 import "./list-item-style.css";
-import { DataBlock } from "./DataBlock";
-import { House, HouseWithMetadata, mkInitialHouseMetadata } from "./types";
+import { DataBlock } from "../DataBlock/DataBlock";
+import { House, HouseWithMetadata, mkInitialHouseMetadata } from "../../types";
 import { useEffect, useState } from "react";
-import { fetchHouseMetaData } from "./api";
+import { fetchHouseMetaData } from "../../api";
 
 interface ListItemProps {
   house: House;
@@ -18,7 +18,11 @@ export const ListItem = ({ house }: ListItemProps): JSX.Element => {
   }, [house]);
 
   return (
-    <div className="list-item">
+    <div
+      className={`list-item list-item__region--${
+        house.region.replace(/ /g, "") || null
+      }`}
+    >
       <DataBlock houseWithMetadata={houseWithMetadata} />
     </div>
   );

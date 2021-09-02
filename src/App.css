@@ -88,6 +88,7 @@ nav ul {
 }
 
 nav li {
+  margin-top: 1em;
   margin-bottom: 1em;
   margin-left: 1em;
 }
@@ -104,11 +105,12 @@ nav a {
 }
 
 nav a:hover {
-  color: #000;
+  color: darkgray;
 }
 
 .nav-toggle:checked ~ nav {
   transform: scale(1, 1);
+  background-color: black;
 }
 
 .nav-toggle:checked ~ nav a {
@@ -119,6 +121,10 @@ nav a:hover {
 @media screen and (min-width: 800px) {
   .nav-toggle-label {
     display: none;
+  }
+
+  nav a:hover {
+    color: black;
   }
 
   header {
