@@ -1,77 +1,72 @@
-// @ts-nocheck
 import { useState } from "react";
-interface House {
-  /** The hypermedia URL of this resource */
-  url: string;
-  /** The name of this house */
-  name: string;
-  /** The region that this house resides in */
-  region: string;
-  /** Text describing the coat of arms of this house */
-  coatOfArms: string;
-  /** The words of this house*/
-  words: string;
-  /** The titles that this house holds*/
-  titles: Array<string>;
-  /** The seats that this house holds*/
-  seats: Array<string>;
-  /** The Character resource URL of this house's current lord*/
-  currentLord: string;
-  /** The Character resource URL of this house's heir*/
-  heir: string;
-  /** The House resource URL that this house answers to*/
-  overlord: string;
-  /** The year that this house was founded*/
-  founded: string;
-  /** The Character resource URL that founded this house*/
-  founder: string;
-  /** The year that this house died out*/
-  diedOut: string;
-  /** An array of names of the noteworthy weapons that this house owns */
-  ancestralWeapons: Array<string>;
-  /** An array of House resource URLs that was founded from this house */
-  cadetBranches: Array<string>;
-  /**  An array of Character resource URLs that are sworn to this house*/
-  swornMembers: Array<string>;
-}
-const NineHouses = () => {
+import { fetchHouse, fetchHouseMetaData } from "./api";
+import { Modal } from "./components/Modal/Modal";
+import "./nine-houses-style.css";
+import { HouseWithMetadata, mkInitialHouseMetadata } from "./types";
+
+export const NineHouses = () => {
+  const houseIdFromHouseName = {
+    greyjoy: 169,
+    tully: 395,
+    baratheon: 17,
+    lannister: 229,
+    stark: 362,
+    targaryen: 378,
+    arryn: 7,
+    martell: 285,
+    tyrell: 398,
+  };
+
   return (
-    <div>
-      <h1>NineHouses</h1>
-      <HouseCard houseId={169} />
-      <hr />
-      <HouseCard houseId={45} />
-      <hr />
-      <HouseCard houseId={2} />
-      <hr />
-      <HouseCard houseId={345} />
-      <hr />
-      <HouseCard houseId={34} />
-      <hr />
-      <HouseCard houseId={24} />
-      <hr />
-      <HouseCard houseId={56} />
-      <hr />
-    </div>
+    <>
+      <section className="nine-houses container">
+        <h1 className="nine-houses__title">Great Houses of Westeros</h1>
+      </section>
+      <section className="nine-houses__content container">
+        <div className="content-wrap">
+          {Object.entries(houseIdFromHouseName).map(([k, v]) => (
+            <HouseCard key={k} houseId={v} houseName={k} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
+
 interface HouseProps {
   houseId: number;
+  houseName: string;
 }
-// const add = (x: number, y: number): number => x + y;
-const HouseCard = ({ houseId }: HouseProps): JSX.Element => {
-  const [house, setHouse] = useState<null | House>(null);
+
+const HouseCard = ({ houseId, houseName }: HouseProps): JSX.Element => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [houseWithMetadata, setHouseWithMetaData] = useState<HouseWithMetadata>(
+    mkInitialHouseMetadata
+  );
+
   return (
-    <div
-      className="card"
-      onClick={() => {
-        fetch(`https://anapioficeandfire.com/api/houses/${houseId}`)
-          .then((x) => x.json())
-          .then((rsp) => setHouse(rsp));
-      }}
-    >
-      {house ? house.region : <h1>click me to get a house</h1>}
-    </div>
+    <>
+      <div
+        className="card"
+        onClick={async () => {
+          setModalIsOpen(true);
+          setLoading(true);
+          const house = await fetchHouse(houseId);
+          setHouseWithMetaData(await fetchHouseMetaData(house));
+          setLoading(false);
+        }}
+      >
+        <img src={`${houseName}.jpg`} alt={houseName} className="card-image" />
+      </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onClose={() => setModalIsOpen(false)}
+        houseWithMetadata={houseWithMetadata}
+        loading={loading}
+        houseName={houseName}
+      />
+    </>
   );
 };
-export default NineHouses;

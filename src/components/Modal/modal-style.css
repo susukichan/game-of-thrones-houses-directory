@@ -1,0 +1,117 @@
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  z-index: 1000;
+  width: 80%;
+  height: 28rem;
+  border-radius: 1rem;
+  overflow: scroll;
+}
+
+.modal__button {
+  background-image: linear-gradient(
+    to right,
+    #ff4e50 0%,
+    #f9d423 51%,
+    #ff4e50 100%
+  );
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px #eee;
+  border: 1px solid #ced4da;
+  width: 5rem;
+  height: 2rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  opacity: 0.9;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 0.5rem;
+}
+
+.modal__button:hover {
+  background-position: right center;
+  color: #222;
+}
+
+.modal--greyjoy {
+  background-color: #251a06;
+  color: #fed250;
+}
+
+.modal--tully {
+  background-color: #85012a;
+  color: #002b4e;
+}
+
+.modal--baratheon {
+  background-color: #fdb814;
+  color: #181818;
+}
+
+.modal--lannister {
+  background-color: #a30b32;
+  color: #fcde70;
+}
+
+.modal--stark {
+  background-color: #fbf6cc;
+  color: #120f15;
+}
+
+.modal--targaryen {
+  background-color: #251a06;
+  color: #a30b32;
+}
+
+.modal--arryn {
+  background-color: #002b4e;
+  color: #fbf6cc;
+}
+
+.modal--martell {
+  background-color: #f78f1e;
+  color: #8a252a;
+}
+
+.modal--tyrell {
+  background-color: #94b695;
+  color: #1d191a;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    padding: 2rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .modal {
+    width: 60%;
+    height: 38rem;
+    padding: 3rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .modal {
+    width: 35%;
+  }
+}
