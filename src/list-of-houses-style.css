@@ -62,9 +62,9 @@
   height: 2rem;
   cursor: pointer;
   border-radius: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.8rem;
   opacity: 0.9;
-  margin: 2rem;
+  margin: 0.5rem;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -79,5 +79,11 @@
   #search-form > div {
     width: 30%;
     margin-right: 2rem;
+  }
+  #search-btn,
+  .prev-button,
+  .next-button {
+    margin: 2rem;
+    font-size: 1rem;
   }
 }
