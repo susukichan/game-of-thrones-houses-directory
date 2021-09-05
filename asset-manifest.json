@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/game-of-thrones-houses-directory/static/css/main.92aa6906.chunk.css",
+    "main.js": "/game-of-thrones-houses-directory/static/js/main.1fe07260.chunk.js",
+    "main.js.map": "/game-of-thrones-houses-directory/static/js/main.1fe07260.chunk.js.map",
+    "runtime-main.js": "/game-of-thrones-houses-directory/static/js/runtime-main.98d316fd.js",
+    "runtime-main.js.map": "/game-of-thrones-houses-directory/static/js/runtime-main.98d316fd.js.map",
+    "static/js/2.b4d1b9c4.chunk.js": "/game-of-thrones-houses-directory/static/js/2.b4d1b9c4.chunk.js",
+    "static/js/2.b4d1b9c4.chunk.js.map": "/game-of-thrones-houses-directory/static/js/2.b4d1b9c4.chunk.js.map",
+    "static/js/3.9a7044e2.chunk.js": "/game-of-thrones-houses-directory/static/js/3.9a7044e2.chunk.js",
+    "static/js/3.9a7044e2.chunk.js.map": "/game-of-thrones-houses-directory/static/js/3.9a7044e2.chunk.js.map",
+    "index.html": "/game-of-thrones-houses-directory/index.html",
+    "static/css/main.92aa6906.chunk.css.map": "/game-of-thrones-houses-directory/static/css/main.92aa6906.chunk.css.map",
+    "static/js/2.b4d1b9c4.chunk.js.LICENSE.txt": "/game-of-thrones-houses-directory/static/js/2.b4d1b9c4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.98d316fd.js",
+    "static/js/2.b4d1b9c4.chunk.js",
+    "static/css/main.92aa6906.chunk.css",
+    "static/js/main.1fe07260.chunk.js"
+  ]
+}
