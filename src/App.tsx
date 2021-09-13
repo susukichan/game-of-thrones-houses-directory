@@ -49,14 +49,14 @@ export function App() {
         </header>
         <main className="main" style={{ backgroundImage: backgroundImage }}>
           <Switch>
+            <Route exact path="/">
+              <Homepage />
+            </Route>
             <Route path="/nine-houses">
               <NineHouses />
             </Route>
             <Route path="/list-of-houses">
               <ListOfHouses />
-            </Route>
-            <Route>
-              <Homepage />
             </Route>
           </Switch>
         </main>

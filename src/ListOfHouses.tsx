@@ -74,6 +74,7 @@ const optionPageSize = [
 
 export const ListOfHouses = (): JSX.Element => {
   const [loading, setLoading] = useState(false);
+  const [searchBefore, setSearchBefore] = useState(false);
   const [houses, setHouses] = useState<Array<House>>([]);
   const [region, setRegion] = useState<{ value?: string }>({});
   const [hasWords, setHasWords] = useState(false);
@@ -118,6 +119,7 @@ export const ListOfHouses = (): JSX.Element => {
     setHouses(await rsp.json());
     setLoading(false);
     setLinkHeader(rsp.headers.get("Link") ?? "");
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -125,7 +127,6 @@ export const ListOfHouses = (): JSX.Element => {
       <div className="select-bar">
         <form
           id="search-form"
-          action=""
           onSubmit={(e) => {
             e.preventDefault();
             setLoading(true);
@@ -151,6 +152,7 @@ export const ListOfHouses = (): JSX.Element => {
               })
               .then((rsp) => {
                 setHouses(rsp);
+                setSearchBefore(true);
                 setLoading(false);
               });
           }}
@@ -201,9 +203,13 @@ export const ListOfHouses = (): JSX.Element => {
         <div className="list-items ">
           {loading ? (
             <Loading />
-          ) : (
+          ) : houses.length > 0 ? (
             houses.map((house) => <ListItem key={house.url} house={house} />)
-          )}
+          ) : searchBefore ? (
+            <div className="search-result-error">
+              There is no houses meet your request. Please search again😀
+            </div>
+          ) : null}
         </div>
       </div>
       <div className="next-prev-buttons">

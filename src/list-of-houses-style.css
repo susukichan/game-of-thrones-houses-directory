@@ -22,6 +22,13 @@
   width: 100%;
 }
 
+.search-result-error {
+  background-color: cadetblue;
+  text-align: center;
+  color: white;
+  margin-top: 2rem;
+}
+
 .next-prev-buttons {
   margin-bottom: 6rem;
   display: flex;
